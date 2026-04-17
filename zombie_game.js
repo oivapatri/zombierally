@@ -745,6 +745,7 @@ document.addEventListener('DOMContentLoaded', () => {
       enabled: true,
       engineNodes: null,
       tireNodes: null,
+      gameOverTimers: [],
       unlock() {
         if (!this.context) {
           const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -968,6 +969,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!this.enabled) return;
         this.unlock();
         if (!this.context) return;
+        // Clear any previous game over sequence that might still be running
+        for (const id of this.gameOverTimers) clearTimeout(id);
+        this.gameOverTimers = [];
         // Dramatic descending death jingle: a sequence of notes scheduled via setTimeout
         const melody = [
           { type: 'sawtooth', start: 330, end: 220, duration: 0.35, volume: 0.06, delay: 0 },
@@ -977,7 +981,7 @@ document.addEventListener('DOMContentLoaded', () => {
           { type: 'square',   start: 82,  end: 41,  duration: 0.90, volume: 0.05, delay: 1900 },
         ];
         for (const note of melody) {
-          setTimeout(() => { this.pulse(note); }, note.delay);
+          this.gameOverTimers.push(setTimeout(() => { this.pulse(note); }, note.delay));
         }
       },
       noise(options) {
@@ -1025,6 +1029,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function startGame() {
+    // Cancel any pending game over jingle before starting a new run
+    for (const id of synth.gameOverTimers) clearTimeout(id);
+    synth.gameOverTimers = [];
+
     if (network.mode === 'client') {
       synth.unlock();
       prepareClientDriveState();
