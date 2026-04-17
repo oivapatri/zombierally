@@ -1,40 +1,33 @@
-# Zombie Racing Apocalypse
+# Zombie Racing: Last Outrun
 
-Täysin uusi peli jossa ajat autolla zombien päältä isolla kilparadalla!
+Top-down zombie car combat -peli HTML5 Canvasilla.
 
-## Pelin ominaisuudet:
-- **3rd person -näkymä**: Kamera seuraa autoa takaa
-- **Zombie-häviö**: 20 zombia jotka seuraavat sinua
-- **Aseet ja räjähteet**: Autossa on konekivääri (välilyönti)
-- **Zombie-räjäytykset**: Kun ajat zombin päältä nopeasti, se räjähtää vereen ja goreen
-- **Pistemäärä**: Saat pisteitä zombien tappamisesta
-- **Terveys ja ammukset**: Hallitse auton terveyttä ja ammuksia
+## Sisalto
+- Nopearytminen ajelu kaupungissa zombilaumoja vastaan
+- Aseet, kranaatit, nitro, pickupit ja wave-pohjainen eteneminen
+- Boss-viholliset, combo-pisteytys ja paikallinen high score
+- LAN host/join -moninpeli (host synkkaa maailman)
 
-## Kontrollit:
-- **Nuolinäppäimet**: Liiku autolla
-- **Välilyönti**: Ammu zombeja
+## Kontrollit
+- `WASD` tai nuolinappaimet: aja autoa
+- `Shift`: nitro
+- `Space` tai `F`: ammu
+- `G`: heita kranaatti
+- `P`: co-op tukituli
 
-## Tekniikka:
-- HTML5 Canvas
-- JavaScript
-- 2D-grafiikka
-- Äänitehosteet
+## Kaynnistys
+1. Asenna riippuvuudet:
+   - `npm install`
+2. Kaynnista palvelin:
+   - `npm start`
+3. Avaa peli selaimessa:
+   - `http://localhost:8080/`
 
-Avaa `zombie_racing.html` selaimessa aloittaaksesi pelin!
+## LAN-moninpeli
+1. Host avaa pelin ja painaa `Host LAN`.
+2. Muut verkon laitteet avaavat hostin IP-osoitteen (`http://HOST_IP:8080/`) ja painavat `Join LAN`.
 
-## LAN-moninpeli (host/join)
-
-Peli tukee nyt LAN-moninpelia host/join-mallilla.
-
-1. Asenna riippuvuudet projektikansiossa:
-	- `npm install`
-2. Kaynnista LAN-palvelin host-koneella:
-	- `npm start`
-3. Avaa host-koneella peli selaimeen osoitteesta:
-	- `http://HOST_IP:8080/zombie_racing.html`
-4. Host painaa pelin sivupaneelista `Host LAN`.
-5. Muut laitteet samassa verkossa avaavat saman sivun omassa selaimessa ja painavat `Join LAN`.
-
-Huom:
-- Host ajaa autoa ja hallitsee maailmaa.
-- Liittyneet pelaajat voivat osallistua tukitulena (ampuminen/kranaatti verkon yli).
+## Projektin tiedostot
+- `zombie_racing.html`: UI ja canvas-sivu
+- `zombie_game.js`: pelilogiikka, grafiikka, aanet
+- `lan_server.js`: Express + WebSocket LAN-palvelin
