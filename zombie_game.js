@@ -964,6 +964,22 @@ document.addEventListener('DOMContentLoaded', () => {
         oscillator.start(time);
         oscillator.stop(time + duration);
       },
+      playGameOver() {
+        if (!this.enabled) return;
+        this.unlock();
+        if (!this.context) return;
+        // Dramatic descending death jingle: a sequence of notes scheduled via setTimeout
+        const melody = [
+          { type: 'sawtooth', start: 330, end: 220, duration: 0.35, volume: 0.06, delay: 0 },
+          { type: 'sawtooth', start: 220, end: 165, duration: 0.35, volume: 0.06, delay: 380 },
+          { type: 'sawtooth', start: 165, end: 110, duration: 0.40, volume: 0.07, delay: 760 },
+          { type: 'sawtooth', start: 110, end: 55,  duration: 0.70, volume: 0.08, delay: 1180 },
+          { type: 'square',   start: 82,  end: 41,  duration: 0.90, volume: 0.05, delay: 1900 },
+        ];
+        for (const note of melody) {
+          setTimeout(() => { this.pulse(note); }, note.delay);
+        }
+      },
       noise(options) {
         if (!this.enabled) {
           return;
@@ -2550,7 +2566,7 @@ document.addEventListener('DOMContentLoaded', () => {
         `Runko petti pisteissä ${game.score.toLocaleString('fi-FI')}. Tappoja kertyi ${game.kills}. Enter tai nappi käynnistää uuden ajon.`,
         'Yritä uudestaan'
       );
-      synth.pulse({ type: 'sawtooth', start: 150, end: 45, duration: 0.28, volume: 0.045 });
+      synth.playGameOver();
     }
   }
 
@@ -2628,6 +2644,7 @@ document.addEventListener('DOMContentLoaded', () => {
     drawRadar();
     drawCanvasHud();
     drawScreenFx();
+    drawGameOverScreen();
   }
 
   function drawSky(delta) {
@@ -4450,6 +4467,48 @@ document.addEventListener('DOMContentLoaded', () => {
     vignette.addColorStop(1, 'rgba(0, 0, 0, 0.35)');
     ctx.fillStyle = vignette;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
+  }
+
+  function drawGameOverScreen() {
+    if (!game.over || game.victory) return;
+
+    const cx = canvas.width / 2;
+    const cy = canvas.height / 2;
+    const pulse = 0.82 + Math.sin(game.elapsed * 3.4) * 0.18;
+
+    // Dark translucent overlay
+    ctx.save();
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.62)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Glowing red backdrop behind text
+    const glow = ctx.createRadialGradient(cx, cy, 10, cx, cy, 340);
+    glow.addColorStop(0, `rgba(180, 0, 0, ${0.36 * pulse})`);
+    glow.addColorStop(1, 'rgba(180, 0, 0, 0)');
+    ctx.fillStyle = glow;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Main "GAME OVER" text
+    const fontSize = Math.round(canvas.height * 0.16);
+    ctx.font = `900 ${fontSize}px 'Trebuchet MS', Impact, sans-serif`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+
+    // Shadow / outline
+    ctx.shadowColor = '#ff0000';
+    ctx.shadowBlur = 40 * pulse;
+    ctx.fillStyle = `rgba(255, ${Math.round(20 + 30 * pulse)}, ${Math.round(20 + 20 * pulse)}, ${0.92 * pulse})`;
+    ctx.fillText('GAME OVER', cx, cy);
+
+    // Subtitle
+    ctx.shadowBlur = 12;
+    ctx.font = `bold ${Math.round(canvas.height * 0.038)}px 'Trebuchet MS', sans-serif`;
+    ctx.fillStyle = `rgba(255, 200, 200, ${0.78 * pulse})`;
+    ctx.fillText('Press ENTER or click Yritä uudestaan', cx, cy + fontSize * 0.68);
+
+    ctx.shadowColor = 'transparent';
+    ctx.shadowBlur = 0;
+    ctx.restore();
   }
 
   function isOnRoad(x, y) {
