@@ -1,19 +1,40 @@
-# Super-kilpa-ajelu
+# Zombie Racing Apocalypse
 
-Paikallinen HTML5-peli, jossa ajat Mario-teemaisella kilpa-autolla kurvikkaalla radalla. Katsomossa on innokkaita faneja kannustamassa, ja radalla on eläimiä, joiden päältä voit ajaa!
+Täysin uusi peli jossa ajat autolla zombien päältä isolla kilparadalla!
 
-## Käyttö
+## Pelin ominaisuudet:
+- **3rd person -näkymä**: Kamera seuraa autoa takaa
+- **Zombie-häviö**: 20 zombia jotka seuraavat sinua
+- **Aseet ja räjähteet**: Autossa on konekivääri (välilyönti)
+- **Zombie-räjäytykset**: Kun ajat zombin päältä nopeasti, se räjähtää vereen ja goreen
+- **Pistemäärä**: Saat pisteitä zombien tappamisesta
+- **Terveys ja ammukset**: Hallitse auton terveyttä ja ammuksia
 
-Avaa `index.html` selaimessa ja käytä nuolinäppäimiä ohjaukseen.
+## Kontrollit:
+- **Nuolinäppäimet**: Liiku autolla
+- **Välilyönti**: Ammu zombeja
 
-## Äänet
+## Tekniikka:
+- HTML5 Canvas
+- JavaScript
+- 2D-grafiikka
+- Äänitehosteet
 
-Peli tukee ääniefektejä. Lisää seuraavat äänitiedostot samaan kansioon kuin `index.html`:
+Avaa `zombie_racing.html` selaimessa aloittaaksesi pelin!
 
-- `engine.mp3` tai `engine.wav`: Renkaiden ääni (loop)
-- `crash.mp3` tai `crash.wav`: Seinään törmäyksen ääni
-- `music.mp3` tai `music.wav`: Taustamusiikki (loop)
+## LAN-moninpeli (host/join)
 
-Voit ladata ilmaisia ääniefektejä sivustoilta kuten freesound.org tai luoda omia.
+Peli tukee nyt LAN-moninpelia host/join-mallilla.
 
-Jos äänitiedostoja ei ole, peli toimii ilman ääniä."# zombierally" 
+1. Asenna riippuvuudet projektikansiossa:
+	- `npm install`
+2. Kaynnista LAN-palvelin host-koneella:
+	- `npm start`
+3. Avaa host-koneella peli selaimeen osoitteesta:
+	- `http://HOST_IP:8080/zombie_racing.html`
+4. Host painaa pelin sivupaneelista `Host LAN`.
+5. Muut laitteet samassa verkossa avaavat saman sivun omassa selaimessa ja painavat `Join LAN`.
+
+Huom:
+- Host ajaa autoa ja hallitsee maailmaa.
+- Liittyneet pelaajat voivat osallistua tukitulena (ampuminen/kranaatti verkon yli).

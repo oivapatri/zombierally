@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ratakaahaus: Mario-tyylinen kilpa</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="game-shell">
+    <header>
+      <h1>Super-kilpa-ajelu</h1>
+      <p>Paina nuolinäppäimiä ajaaksesi radalla. Yritä suorittaa kierroksia nopeasti!</p>
+    </header>
+    <canvas id="gameCanvas" width="960" height="640"></canvas>
+    <section class="info-panel">
+      <div><strong>Nopeus:</strong> <span id="speed">0</span> km/h</div>
+      <div><strong>Kierros:</strong> <span id="lap">0</span>/1</div>
+      <div><strong>Aika:</strong> <span id="timer">0.00</span> s</div>
+      <div><strong>Vinkki:</strong> Aja radalla, pysy tiellä ja vältä puskuria.</div>
+    </section>
+    <footer>
+      <p>Rakenna peli paikallisesti avaamalla tämä sivu selaimessa.</p>
+    </footer>
+  </div>  <audio id="engineSound" loop preload="auto">
+    <source src="engine.mp3" type="audio/mpeg">
+    <source src="engine.wav" type="audio/wav">
+  </audio>
+  <audio id="crashSound" preload="auto">
+    <source src="crash.mp3" type="audio/mpeg">
+    <source src="crash.wav" type="audio/wav">
+  </audio>
+  <audio id="backgroundMusic" loop preload="auto">
+    <source src="music.mp3" type="audio/mpeg">
+    <source src="music.wav" type="audio/wav">
+  </audio>  <script src="script.js"></script>
+</body>
+</html>

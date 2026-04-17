@@ -1,0 +1,70 @@
+:root {
+  color-scheme: only light;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(180deg, #6fdc6f 0%, #2d8a2d 100%);
+  color: #111;
+}
+html, body {
+  margin: 0;
+  min-height: 100%;
+}
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+}
+.game-shell {
+  width: 980px;
+  max-width: 100%;
+  background: #111;
+  border-radius: 24px;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.35);
+  overflow: hidden;
+}
+header {
+  padding: 20px 24px 8px;
+  background: linear-gradient(90deg, #ff4858, #ffc43d);
+  color: #111;
+}
+header h1 {
+  margin: 0 0 8px;
+  font-size: 1.8rem;
+}
+header p {
+  margin: 0;
+  opacity: 0.9;
+}
+canvas {
+  display: block;
+  width: 100%;
+  background: #74c0ff;
+}
+.info-panel {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  padding: 18px 24px 24px;
+  background: #0d1d31;
+  color: #fff;
+  font-size: 0.98rem;
+}
+.info-panel div {
+  background: rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 12px 16px;
+}
+footer {
+  padding: 10px 24px 18px;
+  color: #cad3ff;
+  font-size: 0.9rem;
+  background: #08101f;
+}
+@media (max-width: 640px) {
+  .game-shell {
+    width: 100%;
+  }
+  .info-panel {
+    grid-template-columns: 1fr;
+  }
+}
